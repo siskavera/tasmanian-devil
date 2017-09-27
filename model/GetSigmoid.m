@@ -2,9 +2,10 @@ function [r0, tHalf, eqPrev] = GetSigmoid(t, prev, pop)
 % GETSIGMOID Calculate summary statistics from a sigmoid fit
 %   [r0, tHalf, eqPrev] = GetSigmoid(t, prev, pop) returns fitted initial
 %   increase rate r0, half-life tHalf and equilibrial value eqPrev from a
-%   sigmoidal fit to prevalence (prev) as a function of time (t). Only
-%   considers time-series until population size drops below 30, to avoid
-%   highly stochastic period
+%   sigmoidal fit to prevalence (prev) as a function of time (t). 
+% 
+% Only considers time-series from first case until population size drops 
+% below 30, to avoid highly stochastic period
 
 nSites = size(prev,2);
 tPrevEP = cell(1,nSites);

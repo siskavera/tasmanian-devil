@@ -1,5 +1,9 @@
 function K = ReadK( popAll )
+% READK Read carrying capacities for Tasmania
+%   K = ReadK( popAll ) returns 42X42 2D matrix of carrying capacities
+%
 % Sum: ~150.000 animals
+
 K = [...
 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;...
 0,0,0,0,81,106,2347,80,90,80,179,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;...

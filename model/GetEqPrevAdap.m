@@ -3,6 +3,10 @@ function [eqPrev, eqPrevStd] = GetEqPrevAdap(t, prev, pop, kMonitored, r0Factor,
 %   [eqPrev, eqPrevStd] = GetEqPrevAdap(t, prev, pop, kMonitored, r0Factor,
 %   averBeg, averEnd) returns the mean (eqPrev) and standard deviation
 %   (eqPrevStd) of equilibrial prevalence.
+%
+% Adaptive period: r0 calculated from 5 diseased animals until prevalence
+% surpasses maximal prevalence / r0Factor. Equibrial prevalence then
+% calculated from time > averBeg/r0 until time > averEnd/r0
 
 nEqPrev = size(prev,2);
 tPrevEP = cell(1,nEqPrev);

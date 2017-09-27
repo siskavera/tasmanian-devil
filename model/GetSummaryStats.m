@@ -7,7 +7,8 @@ function [r0, pearsonR0, r023, pearsonR023, eqPrev, eqPrevStd, ...
 %   GetSummaryStats(infectionRate, latentPeriod, contactRate,
 %   diagnoseProp, diagnosePeriod, migrationRate, xInit, yInit, K) Runs
 %   simulation with corresponding input parameters and returns summary
-%   statistics
+%   statistics.
+%
 
 % Set fixed parameters
 minPrev = 0.2;

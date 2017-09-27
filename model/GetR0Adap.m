@@ -1,6 +1,10 @@
 function [r0, pearsonR] = GetR0Adap(t, prev, pop, kMonitored, r0Factor)
 % GETR0ADAP Calculate initial increase in prevalence from an adaptive period
 %   [r0, pearsonR] = GetR0Adap(t, prev, pop, kMonitored, r0Factor)
+%
+% Adaptive period: r0 calculated from 5 diseased animals until prevalence
+% surpasses maximal prevalence / r0Factor
+
 iBeg = find(prev.*pop > 5, 1);
 iEnd = find(prev>(max(prev)/r0Factor),1);
 

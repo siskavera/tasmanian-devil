@@ -17,7 +17,7 @@ while (true)
         case 4
             newY = y + 1;
     end
-    if (~isSea(newX,newY))
+    if (~isSea(newX,newY)) % Exit if a valid patch is found
         break;
     end
     newX = x;

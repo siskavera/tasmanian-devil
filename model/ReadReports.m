@@ -1,4 +1,10 @@
 function disData = ReadReports
+% READREPORTS Read data from reports on Tasmanian devils
+%   disData = ReadReports returns 103 reports of Tasmanian devils between
+%   1996 and 2005. Only reports with diseased devils are included.
+%
+% Columns:
+%   year x_coordinate y_coordinate #samples #diseased
 
 disData = [001996	3.008278e+02	3.003168e+02	000020	3.000000;...
 001997	2.516479e+02	2.432566e+02	000005	5.000000;...

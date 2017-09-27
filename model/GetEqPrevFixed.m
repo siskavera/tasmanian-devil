@@ -3,6 +3,9 @@ function [eqPrev, eqPrevStd] = GetEqPrevFixed(t, prev, pop, tMin, tMax)
 %   [eqPrev, eqPrevStd] = GetEqPrevFixed(t, prev, pop, tMin, tMax) returns 
 %   the the mean (eqPrev) and standard deviation (eqPrevStd) of equilibrial
 %   prevalence.
+%
+% Estimation is taken from the period from tMin to tMax after the first
+% case and considering only quarterly field trips.
 
 nEqPrev = size(prev,2);
 tPrevEP = cell(1,nEqPrev);
