@@ -1,19 +1,20 @@
 function [tPrev, prevR0, prevR023, popR0, prevEP, popEP, kMonitored, tDistance, maxDistance, proportionReached] = ...
-    Main(xInit, yInit, infectionConst, outbreakConst, globalTransmissionConst, ...
+    MainFit(xInit, yInit, infectionConst, outbreakConst, globalTransmissionConst, ...
     diagnoseProp, diagnosePeriod, migrationConst, K)
 % Continuous time, stochastic (finite, discrete number of individuals)
 % spatial model with Poisson birth and death processes, patches coupled by
 % migration and nearest neighbour contact, age structure
 
-nSteps = 1000000000;
-tTransient = 4;
-tMax = 25;
-nInit = 2;
+% Setting constants
+tTransient = 4; % Time before first mutation [years]
+tMax = 25; % Time from first mutation to end of simulation [years]
+nSteps = 1000000000; % Maximal number of steps (after which simulation is terminated, even if tMax was not reached)
+nInit = 2; % Initial number of infected individuals
 
 % Setting up spatial environment
-population = K;
+population = K; % Start from carrying capacity
 [n, m] = size(population);
-isSea = (K==0);
+isSea = (K==0); % Invalid cells
 K(K == 0) = inf;
 proportionReached = 0;
 nReasonablePatches = length(find(K>10));

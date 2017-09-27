@@ -1,6 +1,6 @@
 function [extinctionTime, relPop, meanPrev, timeRet, pop, prev, nInf, popInit, prevInit, occupied, ...
     popSpatial, prevSpatial, nInfSpatial, popAge, nInfAge] = ...
-    Main(xInit, yInit, infectionConst, outbreakConst, globalTransmissionConst, ...
+    MainLong(xInit, yInit, infectionConst, outbreakConst, globalTransmissionConst, ...
     diagnoseProp, diagnosePeriod, migrationConst, K)
 % Continuous time, stochastic (finite, discrete number of individuals)
 % spatial model with Poisson birth and death processes, patches coupled by
@@ -16,8 +16,6 @@ population = K;
 [n, m] = size(population);
 isSea = (K==0);
 K(K == 0) = inf;
-proportionReached = 0;
-nReasonablePatches = length(find(K>10));
 
 % Indices of initially infected patch
 % R0: Fentonbury [24,22] ~75

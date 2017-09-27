@@ -1,7 +1,7 @@
 function [r0, pearsonR0, r023, pearsonR023, eqPrev, eqPrevStd, ...
         r0Adap, pearsonR0Adap, r0Adap23, pearsonR0Adap23, eqPrevAdap, eqPrevStdAdap, ...
         r0Sigmoid, r0Sigmoid23, eqPrevSigmoid, waveSpeed, pearsonWaveSpeed, proportionReached] = ...
-    Tasmanian(infectionRate, latentPeriod, contactRate, diagnoseProp, ...
+    GetSummaryStats(infectionRate, latentPeriod, contactRate, diagnoseProp, ...
     diagnosePeriod, migrationRate, xInit, yInit, K)
 
 % Set fixed parameters
@@ -38,9 +38,9 @@ r0Factor = 4;
 averBeg = 5;
 averEnd = 12;
 
-% Simulation
+% Run Simulation
 [tPrev, prevR0, prevR023, popR0, prevEP, popEP, kMonitored, tDistance, maxDistance, proportionReached] = ...
-    Main(xInit, yInit, infectionRate, 1/latentPeriod, contactRate, diagnoseProp, diagnosePeriod, migrationRate, K);
+    MainFit(xInit, yInit, infectionRate, 1/latentPeriod, contactRate, diagnoseProp, diagnosePeriod, migrationRate, K);
 
 % Check if disease could spread
 if ( max(maxDistance) < minDistance && proportionReached < minProportionReached)
