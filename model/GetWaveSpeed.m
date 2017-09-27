@@ -1,5 +1,5 @@
 function [waveSpeed,pearson] = GetWaveSpeed(time, maxDistance, isPlot, iBeg, iEnd)
-% Linear fit to the spread of the wave of infection
+% GETWAVESPEED Linear fit to the spread of the wave of infection
 % Fits from (time to maximal spread)/6 to (time to maximal spread)*3/4
 
 if (nargin < 4 && nargin > 1)

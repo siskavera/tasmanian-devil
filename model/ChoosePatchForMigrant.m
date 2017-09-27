@@ -1,5 +1,8 @@
 function [newX,newY] = ChoosePatchForMigrant(isSea, x, y)
-
+% CHOOSEPATCHFORMIGRANT Choose patch for a migrant
+%   ChoosePatchForMigrant(isSea, x, y) Returns indices for the new patch of
+%   a migrant devil. New patch chosen uniformly at random, from valid (not isSea)
+%   patches out of the neighbouring 4 patches
 newX = x;
 newY = y;
 

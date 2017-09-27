@@ -1,3 +1,20 @@
+function Sampler(nSimuMax, outputID)
+% SAMPLER Evaluate Monte Carlo samples
+%   Sampler(nSimuMax, outputID) runs nSimuMax simulations and saves the
+%   all variables to result_{outputID}.mat
+%
+% Parameter ranges hard-coded
+%   param   min max
+%   eta     0   50
+%   c       0   1
+%   m       0   2
+%   prop    0   1
+%   diaPer  0   1.2
+%   latPer  0   1
+%   yInit   1   42
+%   xInit   1   42
+
+clear all;
 if (is_octave)
     warning('off','Octave:divide-by-zero');
 end
@@ -68,16 +85,16 @@ for i = 1:nSimuMax
     
     if (mod(i,5) == 0)
         if (is_octave)
-            save(sprintf('result_%d.mat', threadID),'data','para','-mat4-binary');
+            save(sprintf('result_%d.mat', outputID),'data','para','-mat4-binary');
         else
-            save(sprintf('result_%d', threadID), 'para', 'data');
+            save(sprintf('result_%d', outputID), 'para', 'data');
         end
     end
 end
 
 if (is_octave)
-    save(sprintf('result_%d.mat', threadID),'data','para','-mat4-binary');
+    save(sprintf('result_%d.mat', outputID),'data','para','-mat4-binary');
     warning('on','Octave:divide-by-zero');
 else
-    save(sprintf('result_%d', threadID), 'para', 'data');
+    save(sprintf('result_%d', outputID), 'para', 'data');
 end

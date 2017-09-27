@@ -1,4 +1,9 @@
 function [prop, population] = GetEqDist(deathRate, birthRate, ageTransferConst)
+% GETEQDIST Calculates equilibrial age distribution
+%   [prop, population] = GetEqDist(deathRate, birthRate,
+%   ageTransferConst)returns equilibrial relative population size (prop)
+%   and age distribution (population), given deathRate, birthRate and
+%   transfer rate between age classes.
 
 nAgeClasses = length(deathRate);
 if ( nargin < 3 )

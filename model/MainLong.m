@@ -2,6 +2,7 @@ function [extinctionTime, relPop, meanPrev, timeRet, pop, prev, nInf, popInit, p
     popSpatial, prevSpatial, nInfSpatial, popAge, nInfAge] = ...
     MainLong(xInit, yInit, infectionConst, outbreakConst, globalTransmissionConst, ...
     diagnoseProp, diagnosePeriod, migrationConst, K)
+% MAINLONG Run model with outputs to investigate long-term behaviour
 % Continuous time, stochastic (finite, discrete number of individuals)
 % spatial model with Poisson birth and death processes, patches coupled by
 % migration and nearest neighbour contact, age structure

@@ -1,4 +1,8 @@
 function [eqPrev, eqPrevStd] = GetEqPrevFixed(t, prev, pop, tMin, tMax)
+% GETEQPREVFIXED Calculate equilibrial prevalence from a fixed period
+%   [eqPrev, eqPrevStd] = GetEqPrevFixed(t, prev, pop, tMin, tMax) returns 
+%   the the mean (eqPrev) and standard deviation (eqPrevStd) of equilibrial
+%   prevalence.
 
 nEqPrev = size(prev,2);
 tPrevEP = cell(1,nEqPrev);

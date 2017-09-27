@@ -3,6 +3,11 @@ function [r0, pearsonR0, r023, pearsonR023, eqPrev, eqPrevStd, ...
         r0Sigmoid, r0Sigmoid23, eqPrevSigmoid, waveSpeed, pearsonWaveSpeed, proportionReached] = ...
     GetSummaryStats(infectionRate, latentPeriod, contactRate, diagnoseProp, ...
     diagnosePeriod, migrationRate, xInit, yInit, K)
+% GETSUMMARYSTATS Run simulation and calculate summary statistics.
+%   GetSummaryStats(infectionRate, latentPeriod, contactRate,
+%   diagnoseProp, diagnosePeriod, migrationRate, xInit, yInit, K) Runs
+%   simulation with corresponding input parameters and returns summary
+%   statistics
 
 % Set fixed parameters
 minPrev = 0.2;

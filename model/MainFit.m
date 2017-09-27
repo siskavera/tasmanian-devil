@@ -1,6 +1,7 @@
 function [tPrev, prevR0, prevR023, popR0, prevEP, popEP, kMonitored, tDistance, maxDistance, proportionReached] = ...
     MainFit(xInit, yInit, infectionConst, outbreakConst, globalTransmissionConst, ...
     diagnoseProp, diagnosePeriod, migrationConst, K)
+% MAINFIT Run model with outputs for fitting
 % Continuous time, stochastic (finite, discrete number of individuals)
 % spatial model with Poisson birth and death processes, patches coupled by
 % migration and nearest neighbour contact, age structure

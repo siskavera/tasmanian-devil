@@ -1,5 +1,5 @@
 function [ Qpre, thalf, Qinf, a] = fit_logistic(t,Q)
-%fit a logistic function to time series Q(t).
+% FIT_LOGISTIC Fit a logistic function to time series Q(t).
 %   Inputs: t (time),Q (time series variable)
 %   Outputs: Qpre (logistic model fit to data) and three independent
 %   parameters: thalf, Qinf, and a, describing the logistic

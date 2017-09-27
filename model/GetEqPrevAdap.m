@@ -1,4 +1,8 @@
 function [eqPrev, eqPrevStd] = GetEqPrevAdap(t, prev, pop, kMonitored, r0Factor, averBeg, averEnd)
+% GETEQPREVADAP Calculate equilibrial prevalence from an adaptive period
+%   [eqPrev, eqPrevStd] = GetEqPrevAdap(t, prev, pop, kMonitored, r0Factor,
+%   averBeg, averEnd) returns the mean (eqPrev) and standard deviation
+%   (eqPrevStd) of equilibrial prevalence.
 
 nEqPrev = size(prev,2);
 tPrevEP = cell(1,nEqPrev);

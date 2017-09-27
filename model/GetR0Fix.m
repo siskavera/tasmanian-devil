@@ -1,4 +1,5 @@
 function [r0, pearsonR] = GetR0Fix(t, prev, fixT, kMonitored)
+% GETR0FIX Calculate initial increase in prevalence from a fixed period
 
 iMin = find( prev>0, 1);
 t = t(iMin:end) - t(iMin);
