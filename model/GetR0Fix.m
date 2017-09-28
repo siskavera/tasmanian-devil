@@ -1,4 +1,4 @@
-function [r0, pearsonR] = GetR0Fix(t, prev, pop, fixT)
+function [r0, pearsonR] = GetR0Fix(t, prev, pop, prevForPop, fixT)
 % GETR0FIX Calculate initial increase in prevalence from a fixed period
 %   [r0, pearsonR] = GetR0Fix(t, prev, fixT) returns estimated
 %   initial increase rate in prevalence (r0) and the pearson correlation
@@ -8,7 +8,7 @@ function [r0, pearsonR] = GetR0Fix(t, prev, pop, fixT)
 % first fixT years after the number of case first reaches 3 and quarterly field trips are 
 % considered.
 
-iMin = find( pop.*prev >= 3, 1);
+iMin = find( pop.*prevForPop >= 3, 1)
 t = t(iMin:end) - t(iMin);
 prev = prev(iMin:end);
 

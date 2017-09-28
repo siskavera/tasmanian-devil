@@ -36,7 +36,7 @@ waveSpeed = 0;
 pearsonWaveSpeed = 0;
 info = 0;
 
-fixTR0 = 2;
+fixTR0 = 1.5;
 fixTMin = 3;
 fixTMax = 9;
 
@@ -68,15 +68,15 @@ end
 % Get r0, eqPrev, duration
 %    Fixed period
 %      r0
-[r0, pearsonR0] = GetR0Fix(tPrev, prevR0, popR0, fixTR0);
-[r023, pearsonR023] = GetR0Fix(tPrev, prevR023, popR023, fixTR0);
+[r0, pearsonR0] = GetR0Fix(tPrev, prevR0, popR0, prevR0, fixTR0);
+[r023, pearsonR023] = GetR0Fix(tPrev, prevR023, popR0, prevR0, fixTR0);
 % eqPrev
 [eqPrev, eqPrevStd] = GetEqPrevFixed(tPrev, prevEP, popEP, fixTMin, fixTMax);
 
 
 %    Adaptive period - r0
-[r0Adap, pearsonR0Adap] = GetR0Adap(tPrev, prevR0, popR0, r0Factor);
-[r0Adap23, pearsonR0Adap23] = GetR0Adap(tPrev, prevR023, popR0, r0Factor);
+[r0Adap, pearsonR0Adap] = GetR0Adap(tPrev, prevR0, popR0, prevR0, r0Factor);
+[r0Adap23, pearsonR0Adap23] = GetR0Adap(tPrev, prevR023, popR0, prevR0, r0Factor);
 %   Adaptive period - eqPrev
 [eqPrevAdap, eqPrevStdAdap] = GetEqPrevAdap(tPrev, prevEP, popEP, r0Factor, averBeg, averEnd);
 

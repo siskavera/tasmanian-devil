@@ -1,4 +1,4 @@
-function [tPrev, prevR0, prevR023, popR0, prevEP, popEP, kMonitored, tDistance, maxDistance, proportionReached] = ...
+function [tPrev, prevR0, prevR023, popR0, popR023, prevEP, popEP, tDistance, maxDistance, proportionReached] = ...
     MainFit(xInit, yInit, infectionConst, outbreakConst, globalTransmissionConst, ...
     diagnoseProp, diagnosePeriod, migrationConst, popAll)
 % MAINFIT Run model with outputs for fitting
@@ -515,6 +515,7 @@ tPrev = [];
 prevR0 = [];
 prevR023 = [];
 popR0 = [];
+popR023 = [];
 prevEP = [];
 popEP = [];
 popAll = [];
@@ -525,6 +526,7 @@ tPrev(1) = 0;
 prevR0(1) = 0;
 prevR023(1) = 0;
 popR0(1) = sum(population( monitoredR0(1), monitoredR0(2), :) );
+popR023(1) = population( monitoredR0(1), monitoredR0(2), 3);
 prevEP(1,:) = zeros(1, nMonitoredEqPrev);
 popEP(1,:) = zeros(1, nMonitoredEqPrev);
 for i = 1:nMonitoredEqPrev
@@ -980,6 +982,7 @@ for iStep = 1:nSteps
         % Prevalence
         tPrev = [tPrev; time];
         popR0 = [popR0; sum(sum(population(monitoredR0(1), monitoredR0(2), :)))];
+        popR023 = [popR023; population(monitoredR0(1), monitoredR0(2), 3)];
         prevR0 = [prevR0; sum(infective(monitoredR0(1), monitoredR0(2), 3:end) + diagnosable(monitoredR0(1), monitoredR0(2), 3:end))/sum(population(monitoredR0(1), monitoredR0(2), 3:end))];
         prevR023 = [prevR023; (infective(monitoredR0(1), monitoredR0(2), 3) + diagnosable(monitoredR0(1), monitoredR0(2), 3))/population(monitoredR0(1), monitoredR0(2), 3)];
         
@@ -997,7 +1000,7 @@ for iStep = 1:nSteps
             break;
         end
 
-        % Stop if statistics are collected (monitored patch eradicated and wave speed measured)
+        % Stop if statistics are collected (monitored patches eradicated and wave speed measured)
         if ( (maxDistance(end)>250 && popR0(end)<(kMonitored*0.2)) && min(popEP(end,:)./kMonitoredEP)<0.2 )
             break;
         end
