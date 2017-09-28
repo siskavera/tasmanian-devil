@@ -1,6 +1,6 @@
 function [tPrev, prevR0, prevR023, popR0, prevEP, popEP, kMonitored, tDistance, maxDistance, proportionReached] = ...
     MainFit(xInit, yInit, infectionConst, outbreakConst, globalTransmissionConst, ...
-    diagnoseProp, diagnosePeriod, migrationConst, K)
+    diagnoseProp, diagnosePeriod, migrationConst, popAll)
 % MAINFIT Run model with outputs for fitting
 % Continuous time, stochastic (finite, discrete number of individuals)
 % spatial model with Poisson birth and death processes, patches coupled by
@@ -12,13 +12,28 @@ tMax = 25; % Time from first mutation to end of simulation [years]
 nSteps = 1000000000; % Maximal number of steps (after which simulation is terminated, even if tMax was not reached)
 nInit = 2; % Initial number of infected individuals
 
+% Setting parameters
+nAgeClasses = 5;
+birthConst = [0 0.13 1.3 1.65 1.21]';
+% deathConst = [0.2526 0.2439 0.1214 0.0719 0.8146]'; % From Beeton, scaled
+deathConst = [0.211 0.144 0.133 0.146 0.353]';  % From McCallum
+[eqPopProp, eqAgeDist] = GetEqDist(deathConst, birthConst);  % From deterministic dynamics
+diagnoseConst = 1/(diagnoseProp*diagnosePeriod);
+removalConst = 1/((1-diagnoseProp)*diagnosePeriod);
+
+migConst = [0 migrationConst migrationConst migrationConst migrationConst]'; % Juveniles assumed not to migrate
+transmissionConst = [0 0           0           0           0; ...
+    0 0.602*infectionConst 0.602*infectionConst 0.602*infectionConst 0.602*infectionConst; ...
+    0 0.602*infectionConst infectionConst       infectionConst       infectionConst; ...
+    0 0.602*infectionConst infectionConst       infectionConst       infectionConst; ...
+    0 0.602*infectionConst infectionConst       infectionConst       infectionConst]';
+
 % Setting up spatial environment
-population = K; % Start from carrying capacity
-[n, m] = size(population);
-isSea = (K==0); % Invalid cells
-K(K == 0) = inf;
-proportionReached = 0;
+K = ReadK(popAll/eqPopProp); % Doesn't matter, it will only be used to determine if an origin is valid
+[n, m] = size(K); % Spatial size
 nReasonablePatches = length(find(K>10));
+isSea = (K==0); % Invalid cells
+proportionReached = 0;
 
 % Indices of initially infected patch
 % R0: Fentonbury [24,22] ~75
@@ -34,25 +49,8 @@ for i = 1:nMonitoredEqPrev
 end
 prevInit = nInit/K(xInit, yInit);
 
-% Setting parameters
-nAgeClasses = 5;
-birthConst = [0 0.13 1.3 1.65 1.21]';
-% deathConst = [0.2526 0.2439 0.1214 0.0719 0.8146]'; % From Beeton, scaled
-deathConst = [0.211 0.144 0.133 0.146 0.353]';  % From McCallum
-diagnoseConst = 1/(diagnoseProp*diagnosePeriod);
-removalConst = 1/((1-diagnoseProp)*diagnosePeriod);
-
-migConst = [0 migrationConst migrationConst migrationConst migrationConst]'; % Juveniles assumed not to migrate
-transmissionConst = [0 0           0           0           0; ...
-    0 0.602*infectionConst 0.602*infectionConst 0.602*infectionConst 0.602*infectionConst; ...
-    0 0.602*infectionConst infectionConst       infectionConst       infectionConst; ...
-    0 0.602*infectionConst infectionConst       infectionConst       infectionConst; ...
-    0 0.602*infectionConst infectionConst       infectionConst       infectionConst]';
-
-[eqPopProp, eqAgeDist] = GetEqDist(deathConst, birthConst);  % From deterministic dynamics
-temp = population;
 for i = 1:nAgeClasses
-    population(:,:,i) = ceil(temp*eqAgeDist(i)*eqPopProp);
+    population(:,:,i) = ceil(K*eqAgeDist(i)*eqPopProp);
 end
 kMonitored = kMonitored * eqPopProp;
 kMonitoredEP = kMonitoredEP * eqPopProp;
@@ -107,7 +105,6 @@ for iStep = 1:nSteps
     r2 = rand;
     r3 = rand;
     eventNo = find(cumsum(rates)/rateSum > r1, 1);
-    
     % Indicator of migration
     isMig = 0;
     

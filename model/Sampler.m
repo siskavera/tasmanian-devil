@@ -1,7 +1,7 @@
 function Sampler(nSimuMax, outputID)
 % SAMPLER Evaluate Monte Carlo samples
-%   Sampler(nSimuMax, outputID) runs nSimuMax simulations and saves the
-%   all variables to result_{outputID}.mat
+%   Sampler(nSimuMax, outputID) runs nSimuMax simulations and saves
+%   parameters and summary statistics to result_{outputID}.mat
 %
 % Parameter ranges hard-coded
 %   param   min max
@@ -13,17 +13,32 @@ function Sampler(nSimuMax, outputID)
 %   latPer  0   1
 %   yInit   1   42
 %   xInit   1   42
-
-clear all;
-if (is_octave)
-    warning('off','Octave:divide-by-zero');
-end
+%
+% Saved variables are:
+%
+%   para Table of input parameters
+%     eta    Local infection rate
+%     latPer Latent period
+%     c      Between-patch contact rate
+%     m      Migration rate
+%     prop   Proportion of diagnosable period when animals are not yet
+%     infectious
+%     diaPer Total diagnosable period
+%     xInit  x coordinate of origin (first mutation)
+%     yInit  y coordinate of origin (first mutation)
+%
+%   data Table of summary statistics
+%
+% r0, pearsonR0, r023, pearsonR023, eqPrev, eqPrevStd, ...
+%        r0Adap, pearsonR0Adap, r0Adap23, pearsonR0Adap23, eqPrevAdap, eqPrevStdAdap, ...
+%        r0Sigmoid, r0Sigmoid23, eqPrevSigmoid, waveSpeed, pearsonWaveSpeed, ...
+%        waveSpeedTheo, waveSpeedTheoPearson, proportionReached
 
 % Seed random number generator
 rng('shuffle')
 
-popAll = 102500;
-K = ReadK(popAll);
+popAll = 60000; % From McCallum, personal communication
+K = ReadK(100000); % Doesn't matter, it will only be used to determine if an origin is valid
 isSea = (K==0);
 
 [waveSpeedTheoAll, waveSpeedTheoPearsonAll] = ReadWaveSpeedTheo();
@@ -31,7 +46,7 @@ isSea = (K==0);
 % All parameters are drawn from a uniform distribution in [parMin:parMax]
 etaMin = 0;         % Infection rate
 etaMax = 50;
-cMin = 0;           % Damping factor for between-patch contact rate
+cMin = 0;           % Damping factor for betwepropen-patch contact rate
 cMax = 1;
 mMin = 0;           % Migration rate
 mMax = 2;
@@ -69,7 +84,7 @@ for i = 1:nSimuMax
     [r0, pearsonR0, r023, pearsonR023, eqPrev, eqPrevStd, ...
         r0Adap, pearsonR0Adap, r0Adap23, pearsonR0Adap23, eqPrevAdap, eqPrevStdAdap, ...
         r0Sigmoid, r0Sigmoid23, eqPrevSigmoid, waveSpeed, pearsonWaveSpeed, proportionReached] = ...
-        GetSummaryStats(eta, latPer, c, prop, diaPer, m, xInit, yInit, K);
+        GetSummaryStats(eta, latPer, c, prop, diaPer, m, xInit, yInit, popAll);
      waveSpeedTheo = waveSpeedTheoAll(xInit, yInit);
      waveSpeedTheoPearson = waveSpeedTheoPearsonAll(xInit, yInit);
      
@@ -80,7 +95,8 @@ for i = 1:nSimuMax
     
     data(i,:) = [r0, pearsonR0, r023, pearsonR023, eqPrev, eqPrevStd, ...
         r0Adap, pearsonR0Adap, r0Adap23, pearsonR0Adap23, eqPrevAdap, eqPrevStdAdap, ...
-        r0Sigmoid, r0Sigmoid23, eqPrevSigmoid, waveSpeed, pearsonWaveSpeed, proportionReached];
+        r0Sigmoid, r0Sigmoid23, eqPrevSigmoid, waveSpeed, pearsonWaveSpeed, ...
+        waveSpeedTheo, waveSpeedTheoPearson, proportionReached];
     para(i,:) = [eta, latPer, c, m, prop, diaPer, xInit, yInit];
     
     if (mod(i,5) == 0)

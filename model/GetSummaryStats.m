@@ -2,10 +2,10 @@ function [r0, pearsonR0, r023, pearsonR023, eqPrev, eqPrevStd, ...
         r0Adap, pearsonR0Adap, r0Adap23, pearsonR0Adap23, eqPrevAdap, eqPrevStdAdap, ...
         r0Sigmoid, r0Sigmoid23, eqPrevSigmoid, waveSpeed, pearsonWaveSpeed, proportionReached] = ...
     GetSummaryStats(infectionRate, latentPeriod, contactRate, diagnoseProp, ...
-    diagnosePeriod, migrationRate, xInit, yInit, K)
+    diagnosePeriod, migrationRate, xInit, yInit, popAll)
 % GETSUMMARYSTATS Run simulation and calculate summary statistics.
 %   GetSummaryStats(infectionRate, latentPeriod, contactRate,
-%   diagnoseProp, diagnosePeriod, migrationRate, xInit, yInit, K) Runs
+%   diagnoseProp, diagnosePeriod, migrationRate, xInit, yInit, popAll) Runs
 %   simulation with corresponding input parameters and returns summary
 %   statistics.
 %
@@ -45,8 +45,9 @@ averBeg = 5;
 averEnd = 12;
 
 % Run Simulation
-[tPrev, prevR0, prevR023, popR0, prevEP, popEP, kMonitored, tDistance, maxDistance, proportionReached] = ...
-    MainFit(xInit, yInit, infectionRate, 1/latentPeriod, contactRate, diagnoseProp, diagnosePeriod, migrationRate, K);
+[tPrev, prevR0, prevR023, popR0, prevEP, popEP, kMonitored, tDistance, ...
+    maxDistance, proportionReached] = MainFit(xInit, yInit, infectionRate,...
+    1/latentPeriod, contactRate, diagnoseProp, diagnosePeriod, migrationRate, popAll);
 
 % Check if disease could spread
 if ( max(maxDistance) < minDistance && proportionReached < minProportionReached)
@@ -81,6 +82,7 @@ end
 
 % r0Sigmoid, eqPrevSigmoid
 % From 1 diseased animal to 30 animal, no zeros
+% temp variables instead of ~, so that it runs in Octave too
 [r0Sigmoid, temp1, temp2] = GetSigmoid(tPrev, prevR0, popR0);
 [r0Sigmoid23, temp1, temp2] = GetSigmoid(tPrev, prevR023, popR0);
 [temp1, temp2, eqPrevSigmoid] = GetSigmoid(tPrev, prevEP, popEP);

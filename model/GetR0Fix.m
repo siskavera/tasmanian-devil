@@ -17,7 +17,7 @@ prev = prev(iMin:end);
 %    Fixed period - Consider every 10th point only!
 %      r0
 
-temp = [t(t < fixT), prev(t < fixT)+0.1/kMonitored];
+temp = [t(t < fixT), prev(t < fixT)+0.01/kMonitored];
 temp = temp(1:10:end,:);
 if (size(temp,1) < 3)
     r0 = 0;
