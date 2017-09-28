@@ -45,7 +45,7 @@ averBeg = 5;
 averEnd = 12;
 
 % Run Simulation
-[tPrev, prevR0, prevR023, popR0, prevEP, popEP, kMonitored, tDistance, ...
+[tPrev, prevR0, prevR023, popR0, popR023, prevEP, popEP, tDistance, ...
     maxDistance, proportionReached] = MainFit(xInit, yInit, infectionRate,...
     1/latentPeriod, contactRate, diagnoseProp, diagnosePeriod, migrationRate, popAll);
 
@@ -68,17 +68,17 @@ end
 % Get r0, eqPrev, duration
 %    Fixed period
 %      r0
-[r0, pearsonR0] = GetR0Fix(tPrev, prevR0, fixTR0, kMonitored);
-[r023, pearsonR023] = GetR0Fix(tPrev, prevR023, fixTR0, kMonitored);
+[r0, pearsonR0] = GetR0Fix(tPrev, prevR0, popR0, fixTR0);
+[r023, pearsonR023] = GetR0Fix(tPrev, prevR023, popR023, fixTR0);
 % eqPrev
 [eqPrev, eqPrevStd] = GetEqPrevFixed(tPrev, prevEP, popEP, fixTMin, fixTMax);
 
 
 %    Adaptive period - r0
-[r0Adap, pearsonR0Adap] = GetR0Adap(tPrev, prevR0, popR0, kMonitored, r0Factor);
-[r0Adap23, pearsonR0Adap23] = GetR0Adap(tPrev, prevR023, popR0, kMonitored, r0Factor);
+[r0Adap, pearsonR0Adap] = GetR0Adap(tPrev, prevR0, popR0, r0Factor);
+[r0Adap23, pearsonR0Adap23] = GetR0Adap(tPrev, prevR023, popR0, r0Factor);
 %   Adaptive period - eqPrev
-[eqPrevAdap, eqPrevStdAdap] = GetEqPrevAdap(tPrev, prevEP, popEP, kMonitored, r0Factor, averBeg, averEnd);
+[eqPrevAdap, eqPrevStdAdap] = GetEqPrevAdap(tPrev, prevEP, popEP, r0Factor, averBeg, averEnd);
 
 % r0Sigmoid, eqPrevSigmoid
 % From 1 diseased animal to 30 animal, no zeros

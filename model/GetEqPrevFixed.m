@@ -4,8 +4,8 @@ function [eqPrev, eqPrevStd] = GetEqPrevFixed(t, prev, pop, tMin, tMax)
 %   the the mean (eqPrev) and standard deviation (eqPrevStd) of equilibrial
 %   prevalence.
 %
-% Estimation is taken from the period from tMin to tMax after the first
-% case and considering only quarterly field trips.
+% Estimation is taken from the period from tMin to tMax after the number of
+% cases reaches 3
 
 nEqPrev = size(prev,2);
 tPrevEP = cell(1,nEqPrev);
@@ -13,7 +13,7 @@ prevEPAll = cell(1,nEqPrev);
 popEPAll = cell(1,nEqPrev);
 
 for i = 1:nEqPrev
-    iMin = find( prev(:,i)>0, 1);
+    iMin = find( prev(:,i).*pop(:,i) >= 3, 1);
     tPrevEP{i} = t(iMin:end)-t(iMin);
     prevEPAll{i} = prev(iMin:end,i);
     popEPAll{i} = pop(iMin:end,i);

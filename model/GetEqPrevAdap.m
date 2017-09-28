@@ -1,10 +1,10 @@
-function [eqPrev, eqPrevStd] = GetEqPrevAdap(t, prev, pop, kMonitored, r0Factor, averBeg, averEnd)
+function [eqPrev, eqPrevStd] = GetEqPrevAdap(t, prev, pop, r0Factor, averBeg, averEnd)
 % GETEQPREVADAP Calculate equilibrial prevalence from an adaptive period
-%   [eqPrev, eqPrevStd] = GetEqPrevAdap(t, prev, pop, kMonitored, r0Factor,
+%   [eqPrev, eqPrevStd] = GetEqPrevAdap(t, prev, pop, r0Factor,
 %   averBeg, averEnd) returns the mean (eqPrev) and standard deviation
 %   (eqPrevStd) of equilibrial prevalence.
 %
-% Adaptive period: r0 calculated from 5 diseased animals until prevalence
+% Adaptive period: r0 calculated from 3 diseased animals until prevalence
 % surpasses maximal prevalence / r0Factor. Equibrial prevalence then
 % calculated from time > averBeg/r0 until time > averEnd/r0
 
@@ -27,10 +27,10 @@ for i = 1:nEqPrev
     thisPrev = prevEPAll{i};
     thisPop = popEPAll{i};
 
-    iBeg = find(thisPrev.*thisPop > 5, 1);
+    iBeg = find(thisPrev.*thisPop >= 3, 1);
     iEnd = find(thisPrev>(max(thisPrev)/r0Factor),1);
     if ~( isempty(iEnd) || isempty(iBeg) || iEnd<(iBeg+19))
-        temp = [thisT(iBeg:iEnd), thisPrev(iBeg:iEnd)+0.1/kMonitored];
+        temp = [thisT(iBeg:iEnd), thisPrev(iBeg:iEnd)];
         temp = temp(1:10:end,:);
         p = polyfit(temp(:,1), log(temp(:,2)), 1);
         r0EP = r0EP + p(1);
