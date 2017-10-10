@@ -987,7 +987,7 @@ for iStep = 1:nSteps
         iRecord = iRecord + 1;
 
         % Stop if disease extinct or time past maximal time
-        if ( sum(sum(infExp)) == 0 || sum(sum(popNoAge)) == 0)
+        if ( sum(sum(popNoAge)) == 0)
             extinctionTime = time;
             break;
         end
