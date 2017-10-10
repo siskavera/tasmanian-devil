@@ -8,8 +8,8 @@ function [extinctionTime, relPop, meanPrev, timeRet, pop, prev, nInf, popInit, p
 % migration and nearest neighbour contact, age structure
 
 % Setting constants
-tTransient = 2; % Time before first mutation [years]
-tMax = 5; % Time from first mutation to end of simulation [years]
+tTransient = 4; % Time before first mutation [years]
+tMax = 250; % Time from first mutation to end of simulation [years]
 nSteps = 1000000000; % Maximal number of steps (after which simulation is terminated, even if tMax was not reached)
 nInit = 2; % Initial number of infected individuals
 
