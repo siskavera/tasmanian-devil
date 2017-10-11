@@ -39,7 +39,7 @@ rng('shuffle')
 
 popAll = 60000; % From McCallum, personal communication
 K = ReadK(100000); % Doesn't matter, it will only be used to determine if an origin is valid
-isSea = (K==0);
+isSea = (K < 20);
 
 [waveSpeedTheoAll, waveSpeedTheoPearsonAll] = ReadWaveSpeedTheo();
 
