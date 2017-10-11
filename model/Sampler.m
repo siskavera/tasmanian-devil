@@ -100,17 +100,8 @@ for i = 1:nSimuMax
     para(i,:) = [eta, latPer, c, m, prop, diaPer, xInit, yInit];
     
     if (mod(i,5) == 0)
-        if (is_octave)
-            save(sprintf('result_%d.mat', outputID),'data','para','-mat4-binary');
-        else
-            save(sprintf('result_%d', outputID), 'para', 'data');
-        end
+        save(sprintf('result_%d', outputID), 'para', 'data');
     end
 end
 
-if (is_octave)
-    save(sprintf('result_%d.mat', outputID),'data','para','-mat4-binary');
-    warning('on','Octave:divide-by-zero');
-else
-    save(sprintf('result_%d', outputID), 'para', 'data');
-end
+save(sprintf('result_%d', outputID), 'para', 'data');
