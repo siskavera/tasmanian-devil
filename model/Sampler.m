@@ -61,7 +61,7 @@ yInitMax = 42;
 xInitMin = 1;
 xInitMax = 42;
 
-data = zeros(nSimuMax,18);
+data = zeros(nSimuMax,20);
 para = zeros(nSimuMax,8);
 
 N = 100;
