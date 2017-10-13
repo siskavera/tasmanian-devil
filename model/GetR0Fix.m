@@ -8,7 +8,7 @@ function [r0, pearsonR] = GetR0Fix(t, prev, pop, prevForPop, fixT)
 % first fixT years after the number of case first reaches 3 and quarterly field trips are 
 % considered.
 
-iMin = find( pop.*prevForPop >= 3, 1)
+iMin = find( pop.*prevForPop >= 3, 1);
 t = t(iMin:end) - t(iMin);
 prev = prev(iMin:end);
 
@@ -22,8 +22,9 @@ if (size(temp,1) < 3)
     pearsonR = 0;
     info = 3;
 else
-    p = polyfit(temp(:,1), log(temp(:,2)), 1);
-    r0 = p(1);
+    %p = polyfit(temp(:,1), log(temp(:,2)), 1);
+    f = fit(temp(:,1),temp(:,2),'exp1');
+    r0 = f.b;
     pearsonR = corrcoef(temp(:,1), log(temp(:,2)));
     pearsonR = pearsonR(1,end);
 end
