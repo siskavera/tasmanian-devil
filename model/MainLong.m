@@ -963,7 +963,7 @@ for iStep = 1:nSteps
             end      
     end
     % Recording evolution of distance to disease front, prevalence(time
-    % since arrival), quarterly field trips
+    % since arrival), monthly field trips
     if ( (time-tMonitored) > 1/12)
         popNoAge = sum(population,3);
         infExp = sum((infective(:,:,:)+diagnosable(:,:,:)+exposed(:,:,:)),3);
