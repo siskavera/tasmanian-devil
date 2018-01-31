@@ -6,7 +6,7 @@ Spatially explicit, individual-based framework to model the spread of DFTD in Ta
 
 Our spatially explicit model consisted of an individual-based (thus stochastic) metapopulation of local populations, arranged on a square grid of 10km by 10km cells representing mainland Tasmania. The local populations on each grid were assumed to be well-mixed and only nearest-neighbour interactions (contact and migration) in the von Neumann neighbourhood (4 immediately neighbouring cells) were allowed. The carrying capacity of each cell was set using published data from [Hawkins et al., 2006](https://doi.org/10.1016/j.biocon.2006.04.010). The structure of the model is shown below.
 
-![alt text](https://github.com/siskavera/tasmanian-devil/tree/master/images/model_structure.png "Model structure")
+![alt text](images/model_structure.png "Model structure")
 
 The local dynamics consisted of a compartmental epidemiological model built on demography following logistic growth. There were four disease-related compartments: susceptible (S), exposed (E, no symptoms or infectivity), diagnosable (D, show symptoms but not infective) and infective. The cancer was assumed to lead to certain death, since very few recoveries have ever been observed4. We used a frequency-dependent transmission rate, since it was shown to fit the data better than a density-dependent alternative4. All delays (average healthy lifetime, transfer time between age classes and epidemiological compartments) were assumed to be exponentially distributed to make the stochastic simulation computationally efficient.
 
