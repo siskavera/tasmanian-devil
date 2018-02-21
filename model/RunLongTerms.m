@@ -7,7 +7,7 @@ if nargin < 3
     iSimBeg = 1;
 end
 
-bestSims = importdata('best200_BestSimsParamStats_Obs0.txt','\t',1);
+bestSims = importdata('../data/best200_BestSimsParamStats_Obs0.txt','\t',1);
 nSims = min([size( bestSims.data, 1), nSims]);
 [~, ordering] = sort( bestSims.data(:,2), 'ascend' );
 bestSims.data = bestSims.data(ordering, :);
