@@ -46,7 +46,7 @@ nMonitoredEqPrev = size(monitoredEqPrev,1);
 kMonitored = K(monitoredR0(1), monitoredR0(2) );
 kMonitoredEP = zeros(1, nMonitoredEqPrev);
 for i = 1:nMonitoredEqPrev
-    kMonitoredEP = K(monitoredEqPrev(i,1), monitoredEqPrev(i,2));
+    kMonitoredEP(i) = K(monitoredEqPrev(i,1), monitoredEqPrev(i,2));
 end
 prevInit = nInit/K(xInit, yInit);
 
